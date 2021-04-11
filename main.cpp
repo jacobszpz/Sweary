@@ -14,7 +14,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <set>
+#include <algorithm>
 #include "files.h"
 #include "newspeak.h"
 #include "analysis.h"
@@ -116,8 +116,8 @@ int main()
         // Pause so user can better read whatever's going on
         cout << endl << "End of analysis of file " << textFileName << endl;
         cout << "Press ENTER to continue" << endl;
-        getchar();
         cout.clear();
+        getchar();
         cout << endl;
     }
 
@@ -136,6 +136,7 @@ int main()
     // Write sorted words to file
     cout << endl << "Writing alphabetically sorted word set of all texts to " << sortedWordsFilename << endl;
     Files::writeContentsToFile(sortedWordsFilename, getSortedTextContents(combined));
+    getchar();
     return 0;
 }
 
@@ -218,20 +219,10 @@ void statisticalAnalysis(string textFileName, vector<string> words)
 
 string getSortedTextContents(vector<string> combined)
 {
-  set<string> sortedWords;
-
-  for (string word : combined)
-  {
-    for (char &c : word)
-    {
-      c = tolower(c);
-    }
-    sortedWords.insert(word);
-  }
-
+  sort(combined.begin(), combined.end());
   string sortedTextOutput = "";
 
-  for (string word: sortedWords)
+  for (string word: combined)
   {
     sortedTextOutput.append(word + "\n");
   }
