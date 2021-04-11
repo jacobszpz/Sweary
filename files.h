@@ -18,7 +18,9 @@ namespace sweary
   class Files
   {
   public:
+    // Retrieve contents of file into a string
     static std::string getContentsFromFile(std::string filename);
+    // Dump string into file
     static void writeContentsToFile(std::string filename, std::string contents);
   };
 }
